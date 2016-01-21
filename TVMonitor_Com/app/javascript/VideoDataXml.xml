@@ -1,0 +1,61 @@
+<?xml version="1.0"?> 
+<rss version="2.0"> 
+	<channel> 
+		<item> 
+			<title>Ghana Blues </title>
+			<link>http://lince.dc.ufscar.br/~cedrick/teste/Video_List/Ghana_Blues.mp4.mp4</link> 
+			<description> A/C: Lokua Kanza, Toto e Richard </description> 
+		</item> 
+		
+		<item> 
+			<title>Plus Jamais</title> 
+			<link>http://lince.dc.ufscar.br/~cedrick/teste/Video_List/Plus_Jamais.mp4.mp4</link> 
+			<description> A/C: Cédrick Bamba </description> 
+		</item> 
+		
+		<item> 
+			<title>Shadow Dancer</title> 
+			<link>http://lince.dc.ufscar.br/~cedrick/teste/Video_List/Shadow_Dancer.mp4.mp4</link> 
+			<description> A/C: Lokua Kanza </description> 
+		</item> 
+		
+		<item> 
+			<title>Vie á Zero</title> 
+			<link>http://lince.dc.ufscar.br/~cedrick/teste/Video_List/Vie_A_Zero.mp4.mp4</link> 
+			<description> A/C: Ferré Gola </description> 
+		</item> 
+		
+		
+		<item> 
+			<title>Tropa de Elite</title> 
+			<!--><link>C:\Users\Cedrick Chaud\Tracing\Videos\Tropa.de.Elite.2.BDRip.XviD.ZMG\Tropa_Elite2.avi</link><--> 
+			<link>http://lince.dc.ufscar.br/~cedrick/teste/Video_List/Tropa_Elite2.avi</link>
+			<description> Filme Brasileiro: Tropa de Elite! </description> 
+		</item> 
+		
+		<item> 
+			<title>Best of Fabrice(Jamel Comedy Club)</title> 
+			<link>http://lince.dc.ufscar.br/~cedrick/teste/Video_List/Fabrice_Jamel_Comedy_Club.mp4video</link>
+			<description> Best of Fabrice Éboué inside Jamel Comedy Club from France! </description> 
+		</item> 
+		
+		<item> 
+			<title>Paisagem Deslumbrante</title> 
+			<link>http://192.168.98.18/MeusVideos/video.mp4</link>
+			<description> This video belongs to Caio </description> 
+		</item> 
+		
+		<item> 
+			<title>Viva mais</title> 
+			<link>http://192.168.98.18/MeusVideos/vivamais.mp4</link> 
+			<description>This video belongs to Caio </description> 
+		</item> 
+		
+		<item> 
+			<title>The Peach Open Movie Project</title> 
+			<link>http://192.168.98.18/MeusVideos/video1.mp4</link>
+			<description> This video belongs to The Peach Open Movie Project</description> 
+		</item> 
+		
+	</channel> 
+</rss>
