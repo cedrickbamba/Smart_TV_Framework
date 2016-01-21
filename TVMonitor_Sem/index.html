@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>FrameworkBamba_Test</title>
+
+		<!-- TODO : Common API -->
+		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/OpenSrc/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/CImageViewer.js"></script> 
+		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
+		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Widget.js"></script> 
+        <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/webapi/1.0/deviceapis.js"></script>
+        <script type="text/javascript" src="$MANAGER_WIDGET/Common/webapi/1.0/webapis.js"></script>
+	    
+		<!-- Teste Framework Bamba... -->
+		<script type="text/javascript" language="javascript" src="app/javascript/FrameworkBamba.js"></script> 
+		
+		<!-- TODO : Javascript code -->
+		<script language="javascript" type="text/javascript" src="app/javascript/Main.js"></script>
+		<script language="javascript" type="text/javascript" src="app/javascript/Display.js"></script>
+		<script language="javascript" type="text/javascript" src="app/javascript/Server.js"></script>
+        <script language="javascript" type="text/javascript" src="app/javascript/Data.js"></script>
+        <script language="javascript" type="text/javascript" src="app/javascript/Player.js"></script>
+        <script language="javascript" type="text/javascript" src="app/javascript/VideoDisplay.js"></script>
+        <script language="javascript" type="text/javascript" src="app/javascript/DataJson.js"></script>
+        <script language="javascript" type="text/javascript" src="app/javascript/Audio.js"></script>
+		
+		<!--Stomp Over WebSocket...-->
+		 <script language="javascript" type="text/javascript" src="app/javascript/js/websocket/stomp.js"></script>
+		
+		<!--ActiveMQ-->        
+        <script type="text/javascript" src="app/javascript/js/activemq/amq_jquery_adapter.js"></script>
+        <script type="text/javascript" src="app/javascript/js/activemq/amq.js"></script>
+        <!--Aux Functions-->        
+        <script type="text/javascript" src="app/javascript/js/kaeptor/logger.js"></script>
+        <script type="text/javascript" src="app/javascript/js/kaeptor/jaux.js"></script>
+        <!--Kaeptor Core API-->        
+        <script type="text/javascript" src="app/javascript/js/kaeptor/core.js"></script>
+
+		<!-- TODO : Style sheets code -->
+		<link rel="stylesheet" href="app/stylesheets/Main.css" type="text/css">
+		<link rel="stylesheet" href="app/stylesheets/Video.css" type="text/css">
+
+		<!-- TODO: Plugins -->
+		
+        <object id="pluginTVMW" border=0 classid="clsid:SAMSUNG-INFOLINK-TVMW"></object>
+        <object id="pluginAudio" border=0 classid="clsid:SAMSUNG-INFOLINK-AUDIO"></object>
+		<object id="pluginPlayer" border=0 classid="clsid:SAMSUNG-INFOLINK-PLAYER"></object>
+        <object id="pluginTV" border=0 classid="clsid:SAMSUNG-INFOLINK-TV"></object>
+        <object id="pluginWindow" border=0 classid="clsid:SAMSUNG-INFOLINK-WINDOW"></object>
+        <object id='pluginObjectNNavi' border=0 classid='clsid:SAMSUNG-INFOLINK-NNAVI'></object>
+        <object id="plugin" classid="clsid:SAMSUNG-INFOLINK-SEF" style="width:0px; height:0px;"></object>
+         
+		
+         <object type="application/x-shockwave-flash" id="flvplayer" class="flashscreen">
+                <param name="movie" value="channel.swf"/>
+                <param name="quality" value="high"/>				
+				<param name="bgcolor" value="black"/>			
+        </object>  
+		
+		<object id="pluginObjectNNavi" classid="clsid:SAMSUNG-INFOLINK-NNAVI" border="0"></object>
+	</head>
+
+	<body onload="Main.onLoad();" onunload="Main.onUnload();">
+
+		<!-- Dummy anchor as focus for key events -->
+		<a href="javascript:void(0);" id="anchor" onkeydown="Main.keyDown();"></a>
+		<a href="javascript:void(0);" id="anchor_video" onkeydown="Main.keyDownVideo();"></a>
+		<a href="javascript:void(0);" id="fim" onkeydown="Main.keyDownFim();"></a>
+		<a href="javascript:void(0);" id="return" onkeydown="Main.keyDownReturn();"></a>
+		<a href='javascript:void(0);' id='Popup_EncerrarApp' onkeydown='Main.keyDownEncerrarApp();'></a>
+		<a href='javascript:void(0);' id='Menu_principal' onkeydown='Main.keyDownPrincipal();'></a>
+		<a href='javascript:void(0);' id='Menu_Inicio_Comercial' onkeydown='Main.keyDownInicioComercial();'></a>
+		<a href='javascript:void(0);' id='Menu_Fim_Comercial' onkeydown='Main.keyDownFimComercial();'></a>
+		<a href='javascript:void(0);' id='Menu_List' onkeydown='Main.keyDownListCanais();'></a>
+
+		<!-- TODO: your code here -->
+		<!--<h1 style="align-text:center;color:#32CD32;">TV Convergence Application</h1>-->
+		<p>
+			<div id="mobile" style=" background-image:url('app/images/listbox/phone2.png'); background-repeat:no-repeat; width:27px; height:50px; display:none;"></div>
+			<div id="loginName" style="color:white;"></div>
+		</p>
+		
+		<!-- Loading Design for Calling VideoList App...-->
+		
+		<div id="loading" style=" background-image:url('resource/images/selector_loading.png'); background-repeat:no-repeat; height:100px; width:300px; text-align:center; position:absolute; top:180px; left:410px;padding:5px; margin:20px; display:none;">
+			<table>
+						<tr>
+							<td>
+							<div id="carregando_img"></div>
+							</td>
+							<td>
+							<div id="carregando" style="color:#ffffff; text-align:center; padding:5px; margin:10px; color:#7fffd4;" >carregando...</div>
+							</td>
+
+						</tr>
+			</table>
+			
+		</div>
+		
+		<p>
+
+			<div id="insert-images"></div><br><br>
+			
+		</p><br>
+		
+		
+		<!-- MENU PARA TELA1...-->
+		
+		<div id="help_navi2">
+               
+                	
+					
+                    <img src="app/images/listbox/verde1.png"></img>&nbsp<a class="style_navi">Menu Princpal</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <img src="app/images/listbox/exit1.png"></img>&nbsp<a class="style_navi">Encerrar App</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <img src="app/images/listbox/return.png"></img>&nbsp<a class="style_navi">Retornar</a>
+         </div>
+         
+         <!-- TEMPLATE PARA MENU PRINCIPAL, PARA MENU PROGRAMAR INÍCIO DO COMERCIAL, PARA MENU PROGRAMAR FIM DO COMERCIAL...-->
+     
+         
+         <div id="menu_principal" style=" background-image:url('app/images/listbox/MenuOpcoes_bg_3.png'); background-repeat:no-repeat; height:267px; width:320px; color:#ffffff; text-align:left; position:absolute; top:246px; padding:20px; margin:0px; display:none;">
+					
+					<table cellPadding="0" cellSpacing="0">
+						<tr>
+							<td><div id="numero1"></div></td>
+							<td><div id="op1_menu" style="z-index:3; color:#ffffff;"></div></td>
+						</tr>	
+						<tr>
+							<td><div id="numero2"></div></td>
+							<td><div id="op2_menu" style="z-index:3; color:#ffffff;"></div></td>
+						</tr>
+						<tr>
+							<td><div id="numero3"></div></td>
+							<td><div id="op3_menu" style="z-index:3; color:#ffffff;"></div></td>	
+						</tr> 
+						<tr>
+							<td><div id="numero4"></div></td>
+							<td><div id="op4_menu" style="z-index:3; color:#ffffff;"></div></td>	
+						</tr>
+						<tr>
+							<td><div id="numero5"></div></td>
+							<td><div id="op5_menu" style="z-index:3; color:#ffffff;"></div></td>	
+						</tr>
+						
+					</table>
+					
+			</div>
+			
+			         <div id="menu_highlight" style=" background-image:url('app/images/listbox/MenuOpcoes_bg_4.png'); background-repeat:no-repeat; height:330px; width:390px; color:#ffffff; text-align:left; position:absolute; top:210px; padding:20px; margin:0px; display:none;">
+					
+					<table cellPadding="0" cellSpacing="0">
+					<br>
+						<tr>
+							<td><div id="op1_menu_highlight" style="z-index:3; color:#ffffff; width:330px; height:47px; padding-left:20px;  padding-top:10px; background-repeat:no-repeat;"></div></td>
+						</tr>	
+						<tr>
+							<td><div id="op2_menu_highlight" style="z-index:3; color:#ffffff; width:330px; height:47px; padding-left:20px; padding-top:10px; background-repeat:no-repeat;"></div></td>
+						</tr>
+						<tr>
+							<td><div id="op3_menu_highlight" style="z-index:3; color:#ffffff; width:330px; height:47px; padding-left:20px; padding-top:10px; background-repeat:no-repeat;"></div></td>	
+						</tr> 
+						<tr>
+							<td><div id="op4_menu_highlight" style="z-index:3; color:#ffffff; width:330px; height:47px; padding-left:20px; padding-top:10px; background-repeat:no-repeat;"></div></td>	
+						</tr>
+						<tr>
+							<td><div id="op5_menu_highlight" style="z-index:3; color:#ffffff; width:330px; height:47px; padding-left:20px; padding-top:10px; background-repeat:no-repeat;"></div></td>	
+						</tr>
+						
+					</table>
+					
+			</div>
+			
+			 <!-- POP UP PARA ENCERRAR A APLICAÇÃO...-->
+			 
+			<div id="UIPopupDiv"> 
+		
+			<div id="UIPopupMsg">Deseja mesmo encerrar?</div>
+			<table align="center" cellpadding="40px">
+						<br><br>
+						<tr>
+							<td align="left" >
+							<div id="Button1"></div>
+							</td>
+							<td align="right">
+							<div id="Button2"></div>
+							</td>
+						</tr>
+					</table>
+			
+			</div>
+                
+         <!-- MENU PARA LISTA DE CANAIS...-->
+			
+			<div id="leftHalf_List">
+				
+				<div id="bg13Paint_List"></div>
+				
+				<div id ="rightHalf_List">
+				<div id="videoBox_top_List" class="style_videoListMenu"></div>
+				
+				</div>
+                <div id="videoList_List" class="style_videoList">
+                    <div id="video0_List"></div>
+                    <div id="video1_List"></div>
+                    <div id="video2_List"></div>
+                    <div id="video3_List"></div>
+                    <div id="video4_List"></div>
+                    <div id="videoCount_List"></div>
+                </div>
+                <div id="previous_List"></div>
+                <div id="next_List"></div>
+				
+            </div> 
+            
+            <!-- TEMPLATE PARA PLAYER DE VÍDEO -->
+            
+      <div id="principal" style="display:none;">
+		
+        <div id="main">
+            <div id="logo">Video Play List</div>
+            <div id ="rightHalf">
+			
+				<!--<div id="videoBox_all"></div>-->
+				
+                <div id="videoBox_top"></div>
+                <div id="videoBox_left"></div>
+                <div id="videoBox_right"></div>
+			
+                <div id="videoBox_bottom">
+				
+                    <div id="time">
+                        <div id="progressBarBG">
+                            <div id="progressBar"></div>
+                        </div>
+                        <div id="timeInfo"></div>
+                    </div>
+                    <div id="volume">
+                        <div id="volumeIcon"></div>
+                        <div id="volumeBarBG">
+                            <div id="volumeBar"></div>
+                        </div>
+                        <div id="volumeInfo"></div>
+                    </div>
+                    <div id="videoControl">
+                        <div id="rewind"></div>
+                        <div id="play"></div>
+                        <div id="stop"></div>
+                        <div id="pause"></div>
+                        <div id="forward"></div>
+                    </div>
+                    <div id="status"></div>
+                </div>
+                <div id="description_top"></div>
+                <div id="description_bottom"></div>
+                <div id="description"></div>
+            </div>
+            <div id="leftHalf">
+                <div id="videoList" class="style_videoList">
+                    <div id="video0"></div>
+                    <div id="video1"></div>
+                    <div id="video2"></div>
+                    <div id="video3"></div>
+                    <div id="video4"></div>
+                    <div id="videoCount"></div>
+                </div>
+                <div id="previous"></div>
+                <div id="next"></div>
+            </div> 
+            <div id="navi">
+                <div id="help_navi">
+                    <img src="resource/images/navi/play.png"></img>
+                    <img src="resource/images/navi/stop.png"></img>
+                    <img src="resource/images/navi/pause.png"></img>
+                    <img src="resource/images/navi/rewind.png"></img>
+                    <img src="resource/images/navi/forward.png"></img>&nbsp<a class="style_navi">Video Control</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <img src="resource/images/navi/enter.png"></img>&nbsp<a class="style_navi">Full-screen/Window mode</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <img src="resource/images/navi/return.png"></img>&nbsp<a class="style_navi">Return</a>
+                </div>
+            </div>
+        </div>
+		
+		</div>
+		
+	</body>
+</html>
